@@ -113,7 +113,7 @@ class AuthRepositoryImpl implements AuthRepository {
         final storagePath = '$userId/avatar.jpg';
         await SupabaseService.client.storage
             .from(AppConstants.bucketAvatars)
-            .upload(storagePath, file, fileOptions: FileOptions(upsert: true));
+            .upload(storagePath, file, fileOptions: supabase.FileOptions(upsert: true));
         avatarUrl = SupabaseService.client.storage
             .from(AppConstants.bucketAvatars)
             .getPublicUrl(storagePath);
