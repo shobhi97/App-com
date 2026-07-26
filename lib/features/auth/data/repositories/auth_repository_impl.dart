@@ -53,7 +53,7 @@ class AuthRepositoryImpl implements AuthRepository {
       }
 
       return Right(UserProfileModel.fromJson(existing));
-    } on AuthException catch (e) {
+    } on supabase.AuthException catch (e) {
       return Left(AuthFailure(e.message, code: e.code));
     } catch (e) {
       return Left(UnknownFailure(e.toString()));
