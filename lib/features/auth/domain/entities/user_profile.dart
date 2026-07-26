@@ -3,26 +3,43 @@ import 'package:equatable/equatable.dart';
 enum UserRole { owner, admin, moderator, member }
 
 extension UserRoleX on UserRole {
-  String get label => switch (this) {
-        UserRole.owner => 'Owner',
-        UserRole.admin => 'Admin',
-        UserRole.moderator => 'Moderator',
-        UserRole.member => 'Member',
-      };
+  String get label {
+    switch (this) {
+      case UserRole.owner:
+        return 'Owner';
+      case UserRole.admin:
+        return 'Admin';
+      case UserRole.moderator:
+        return 'Moderator';
+      case UserRole.member:
+        return 'Member';
+    }
+  }
 
-  static UserRole fromString(String value) => switch (value) {
-        'owner' => UserRole.owner,
-        'admin' => UserRole.admin,
-        'moderator' => UserRole.moderator,
-        _ => UserRole.member,
-      };
+  static UserRole fromString(String value) {
+    switch (value) {
+      case 'owner':
+        return UserRole.owner;
+      case 'admin':
+        return UserRole.admin;
+      case 'moderator':
+        return UserRole.moderator;
+      default:
+        return UserRole.member;
+    }
+  }
 
-  bool get canManageInvites => this == UserRole.owner || this == UserRole.admin;
+  bool get canManageInvites =>
+      this == UserRole.owner || this == UserRole.admin;
+
   bool get canManageSessions =>
-      this == UserRole.owner || this == UserRole.admin || this == UserRole.moderator;
-  bool get canAccessAdminPanel => this != UserRole.member;
-}
+      this == UserRole.owner ||
+      this == UserRole.admin ||
+      this == UserRole.moderator;
 
+  bool get canAccessAdminPanel =>
+      this != UserRole.member;
+}
 class UserProfile extends Equatable {
   final String id;
   final String email;
